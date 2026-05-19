@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Epicode - Benchmark Quiz</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="site-header">
+      <img src="assets/epicode_logo.png" alt="Logo Epicode" />
+    </header>
+    <!-- MAIN -->
+    <main class="quiz">
+      <!-- TIMER -->
+      <div class="timer">
+        <div class="timer-circle">
+          <div class="timer-inner">
+            <span class="small-text"> SECONDS </span>
+            <strong id="countdown"> 60 </strong>
+            <span class="small-text"> REMAINING </span>
+          </div>
+        </div>
+      </div>
+      <!-- QUESTION -->
+      <article class="question">
+        <h1>How can I create a <strong>checkbox in HTML?</strong></h1>
+      </article>
+      <!-- QUIZ ANSWERS -->
+      <form class="answers">
+        <fieldset>
+          <!-- ANSWER 1 -->
+          <label class="answer">
+            <input type="radio" name="answer" />
+            <span> &lt;input type="check"&gt; </span>
+          </label>
+          <!-- ANSWER 2 -->
+          <label class="answer">
+            <input type="radio" name="answer" />
+            <span> &lt;input type="checkbox"&gt; </span>
+          </label>
+          <!-- ANSWER 3 -->
+          <label class="answer">
+            <input type="radio" name="answer" />
+            <span> &lt;checkbox&gt; </span>
+          </label>
+          <!-- ANSWER 4 -->
+          <label class="answer">
+            <input type="radio" name="answer" />
+            <span> &lt;input type="button"&gt; </span>
+          </label>
+        </fieldset>
+      </form>
+    </main>
+    <!-- FOOTER -->
+    <footer class="quiz-footer">
+      <p>QUESTION <strong>1</strong> <span> / 10 </span></p>
+    </footer>
+
+    <script src="script.js" ></script>
+  </body>
+</html>
