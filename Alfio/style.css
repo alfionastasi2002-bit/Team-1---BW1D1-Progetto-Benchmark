@@ -103,7 +103,7 @@ color: #ffffff;
 }
 
 /* ripsoste */
-.answers fieldset {
+#answersGrid {
   border: none;
   padding: 0;
   display: grid;
