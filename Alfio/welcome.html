@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to your exam</title>
+    <link rel="stylesheet" href="css/welcome.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header-logo">
+        <img src="assets/epicode_logo.png" alt="Epicode Logo" id="logo-img" />
+      </header>
+
+      <p id="error">you must accept the conditions to proceed!</p>
+
+      <main class="main-content">
+        <h1 class="title">
+          <span class="light-text">Welcome to</span><br />
+          <span class="bold-text">your exam</span>
+        </h1>
+
+        <h2 class="instructions-title">Instructions</h2>
+        <p class="instructions-desc">
+          We don't expect most engineers to know the answers to all of these
+          questions, so don't worry if you're unsure of a few of them.
+        </p>
+
+        <ul class="instructions-list">
+          <li>
+            Each question is <strong>timed</strong> and can only be
+            <strong>answered once.</strong>
+          </li>
+          <li>
+            Changing browser tab or opening other windows will
+            <strong>invalidate the question.</strong>
+          </li>
+          <li>This exam will take approx. <strong>0-5 minutes.</strong></li>
+        </ul>
+      </main>
+
+      <footer class="action-footer">
+        <label class="checkbox-wrapper">
+          <input type="checkbox" id="promise-check" />
+          <span class="checkbox-label"
+            >I promise to answer myself without help from anyone</span
+          >
+        </label>
+        <button class="proceed-btn">PROCEED</button>
+      </footer>
+    </div>
+    <script src="js/welcome.js"></script>
+  </body>
+</html>
