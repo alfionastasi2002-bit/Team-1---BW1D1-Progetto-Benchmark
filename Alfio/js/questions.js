@@ -16,7 +16,7 @@ const questions = [
     type: "multiple",
     difficulty: "easy",
     question:
-      "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn&#039;t get modified?",
+      "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn't get modified?",
     correct_answer: "Final",
     incorrect_answers: ["Static", "Private", "Public"],
   },
@@ -71,7 +71,7 @@ const questions = [
     category: "Science: Computers",
     type: "multiple",
     difficulty: "easy",
-    question: "On Twitter, what is the character limit for a Tweet?",
+    question: "On Twitter, what was the original character limit for a Tweet?",
     correct_answer: "140",
     incorrect_answers: ["120", "160", "100"],
   },
@@ -93,148 +93,3 @@ const questions = [
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
 ];
-
-let questionNumber = 0;
-let score = 0;
-const quizSummary = [];
-
-const questionText = document.querySelector("#questionText");
-const answersGrid = document.querySelector("#answersGrid");
-const currentQ = document.querySelector("#currentQ");
-
-function nextQuestion() {
-  const domanda = questions[questionNumber];
-  questionText.innerHTML = domanda.question;
-  currentQ.innerHTML = questionNumber + 1;
-  answersGrid.innerHTML = "";
-
-  const risposte = [domanda.correct_answer, ...domanda.incorrect_answers];
-  risposte.sort(() => Math.random() - 0.5); // per avere una probabilità casuale dove andrà a finire la domanda
-
-  risposte.forEach(function (risposta) {
-    const label = document.createElement("label"); // per generare dinamicamente questi elementi nell'html
-    const input = document.createElement("input");
-    const span = document.createElement("span");
-
-    label.className = "answer"; //assegnazioni classi css
-    input.className = "radio";
-    span.className = risposta;
-
-    input.type = "radio"; //configurazione del'input
-    input.name = "answer";
-    input.value = risposta;
-
-    span.innerHTML = risposta; // il testo dela rispost
-
-    label.onclick = function (event) {
-      if (event.target.tagName === "INPUT") return; // per eliminare il primo input di default
-
-      // --- UNICA MODIFICA EFFETTUATA ---
-      // Salviamo tutte le informazioni necessarie per far funzionare showFinalSummary() dopo
-      if (risposta === domanda.correct_answer) {
-        score++;
-        quizSummary.push({
-          questionText: domanda.question,
-          userAnswer: risposta,
-          correctAnswer: domanda.correct_answer, // Salvata!
-          allAnswers: risposte, // Salvata!
-          result: "correct",
-        });
-      } else {
-        quizSummary.push({
-          questionText: domanda.question,
-          userAnswer: risposta,
-          correctAnswer: domanda.correct_answer, // Salvata!
-          allAnswers: risposte, // Salvata!
-          result: "wrong",
-        });
-      }
-
-      answersGrid.style.pointerEvents = "none";
-
-      setTimeout(function () {
-        questionNumber++;
-
-        // CONTROLLO: Ci sono ancora domande?
-        if (questionNumber < questions.length) {
-          avviaTimer();
-          nextQuestion();
-          answersGrid.style.pointerEvents = "auto";
-        } else {
-          // SE LE DOMANDE SONO FINITE:
-
-          // 1. Nascondiamo il quiz principale
-          document.querySelector(".quiz").style.display = "none";
-
-          // 2. Facciamo partire la funzione che stampa i risultati nel "summary-area”
-          showFinalSummary();
-        }
-      }, 1000);
-    };
-
-    label.appendChild(input);
-    label.appendChild(span);
-    answersGrid.appendChild(label);
-  });
-}
-
-nextQuestion();
-
-function showFinalSummary() {
-  if (document.querySelector(".question")) document.querySelector(".question").style.display = "none";
-  if (document.querySelector(".answers")) document.querySelector(".answers").style.display = "none";
-  if (document.querySelector(".timer")) document.querySelector(".timer").style.display = "none";
-  if (document.querySelector(".quiz-footer")) document.querySelector(".quiz-footer").style.display = "none";
-
-  const summaryContainer = document.getElementById("summary-area");
-  summaryContainer.replaceChildren();
-
-  const finalScore = document.createElement("h2");
-  finalScore.textContent = "You answered correctly to " + score + " questions";
-  summaryContainer.appendChild(finalScore);
-
-  quizSummary.forEach(function (element) {
-    const card = document.createElement("div");
-    card.className = "summary-card";
-
-    const pQuestion = document.createElement("p");
-    pQuestion.textContent = element.questionText;
-    pQuestion.className = "question-title";
-
-    const answersList = document.createElement("ul");
-
-    element.allAnswers.forEach(function (answer) {
-      const li = document.createElement("li");
-      li.textContent = answer;
-
-      if (answer === element.correctAnswer) {
-        li.classList.add("result-correct");
-      }
-
-      // risposta scelta dall'utente
-      if (answer === element.userAnswer) {
-        li.classList.add("selected-answer");
-      }
-
-      // risposta scelta ma sbagliata
-      if (answer === element.userAnswer && answer !== element.correctAnswer) {
-        li.classList.add("result-wrong");
-      }
-      answersList.appendChild(li);
-    });
-
-    card.appendChild(pQuestion);
-    card.appendChild(answersList);
-    summaryContainer.appendChild(card);
-  });
-  
-  summaryContainer.style.display = "block";
-}
-/*
-let risposteCorrette = 7;
-let risposteSbagliate = 3;
-
-localStorage.setItem("punteggioEsatto", risposteCorrette);
-localStorage.setItem("punteggioSbagliato", risposteSbagliate);
-
-window.location.href = "risultati.html";*/

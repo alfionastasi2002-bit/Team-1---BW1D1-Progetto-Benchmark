@@ -1,0 +1,108 @@
+<<<<<<< HEAD:quiz.html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/quiz.css" />
+    <link rel="stylesheet" href="css/summary.css" />
+    <title>Epicode - Benchmark Quiz</title>
+  </head>
+  <body>
+    <!-- Contenitore generale della pagina -->
+    <div class="container">
+      <!-- Header con logo -->
+      <header class="site-header">
+        <img src="assets/epicode_logo.png" alt="Logo Epicode" />
+      </header>
+      <!-- Area principale del quiz -->
+      <main class="quiz">
+        <!-- Timer circolare -->
+        <div class="timer">
+          <div class="timer-circle">
+            <div class="timer-inner">
+              <span class="small-text">SECONDS</span>
+              <strong id="countdown">60</strong>
+              <span class="small-text">REMAINING</span>
+            </div>
+          </div>
+        </div>
+        <!-- Qui JavaScript inserisce la domanda -->
+        <article class="question">
+          <h1 id="questionText">in caricamento..</h1>
+        </article>
+        <!-- Qui JavaScript crea dinamicamente le risposte -->
+        <form class="answers">
+          <fieldset id="answersGrid"></fieldset>
+        </form>
+        <!-- Qui verrà creato il riepilogo finale -->
+        <div id="summary-area"></div>
+      </main>
+      <!-- Footer con numero domanda corrente -->
+      <footer class="quiz-footer">
+        <p>QUESTION <strong id="currentQ">1</strong> <span>/ 10</span></p>
+      </footer>
+    </div>
+    <!-- Libreria esterna per effetto coriandoli -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <!-- Array con tutte le domande -->
+    <script src="js/questions.js"></script>
+    <!-- Funzione che crea il riepilogo finale -->
+    <script src="js/summary.js"></script>
+    <!-- Funzione timer -->
+    <script src="js/timer.js"></script>
+    <!-- Logica principale del quiz -->
+    <script src="js/quiz.js"></script>
+  </body>
+</html>
+=======
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/summary.css" />
+    <title>Epicode - Benchmark Quiz</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="site-header">
+        <img src="assets/epicode_logo.png" alt="Logo Epicode" />
+      </header>
+
+      <main class="quiz">
+        <div class="timer">
+          <div class="timer-circle">
+            <div class="timer-inner">
+              <span class="small-text"> SECONDS </span>
+              <strong id="countdown"> 60 </strong>
+              <span class="small-text"> REMAINING </span>
+            </div>
+          </div>
+        </div>
+        <article class="question">
+          <h1 id="questionText">in caricamento..</h1>
+        </article>
+        <form class="answers">
+          <fieldset id="answersGrid"></fieldset>
+        </form>
+      </main>
+
+      <div id="summary-area"></div>
+
+      <footer class="quiz-footer">
+        <p>QUESTION <strong id="currentQ">1</strong> <span>/ 10</span></p>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <script src="js/questions.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/summary.js"></script>
+  </body>
+</html>
+>>>>>>> b7ba9bf2ec09c8f0cf6803098258c28af68c6433:Alfio/quiz.html

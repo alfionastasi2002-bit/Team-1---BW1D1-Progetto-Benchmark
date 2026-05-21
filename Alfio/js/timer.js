@@ -1,53 +1,61 @@
+// Secondi iniziali timer
 let secondi = 60;
+
+// Variabile intervallo timer
 let timer;
 
-const countdown = document.querySelector('#countdown');
-const timerCircle = document.querySelector('.timer-circle');
+// Selezione elementi HTML
+const countdown = document.querySelector("#countdown");
 
+const timerCircle = document.querySelector(".timer-circle");
+
+// FUNZIONE TIMER
 function avviaTimer() {
-    clearInterval(timer);
+  // Ferma eventuali timer precedenti
+  clearInterval(timer);
 
-    secondi = 60;
+  // Reset secondi
+  secondi = 60;
+
+  // Aggiorna testo timer
+  countdown.textContent = secondi;
+
+  // Reset grafica cerchio
+  timerCircle.style.background =
+    "conic-gradient(#00e5ff 100%, rgba(255,255,255,0.1) 0%)";
+
+  // Timer ogni secondo
+  timer = setInterval(function () {
+    // Diminuisce secondi
+    secondi--;
+
+    // Aggiorna numero timer
     countdown.textContent = secondi;
 
-    if (timerCircle) {
-        timerCircle.style.background = `conic-gradient(#00e5ff 100%, rgba(255,255,255,0.1) 0%)`;
+    // Calcolo percentuale grafica
+    const percent = (secondi / 60) * 100;
+
+    // Aggiorna cerchio animato
+    timerCircle.style.background = `conic-gradient(#00e5ff ${percent}%, rgba(255,255,255,0.1) 0%)`;
+
+    // Se tempo finito
+    if (secondi <= 0) {
+      // Ferma timer
+      clearInterval(timer);
+
+      // Salva risposta non data
+      quizSummary.push({
+        questionText: questions[questionNumber].question,
+
+        userAnswer: "Nessuna risposta",
+
+        correctAnswer: questions[questionNumber].correct_answer,
+
+        result: "wrong",
+      });
+
+      // Passa domanda successiva
+      vaiAllaProssimaDomanda();
     }
-
-    timer = setInterval(function() {
-        secondi--;
-        countdown.textContent = secondi;
-        
-        if (timerCircle) {
-            const percent = (secondi / 60) * 100;
-            timerCircle.style.background = `conic-gradient(#00e5ff ${percent}%, rgba(255,255,255,0.1) 0%)`;
-        }
-
-        if (secondi <= 0) {
-            clearInterval(timer);    
-            const grid = document.querySelector('#answersGrid');
-            if (grid) grid.style.pointerEvents = 'none';
-
-            setTimeout(function() {
-                questionNumber++;
-                
-                // Controllo di sicurezza: passiamo alla prossima solo se ce ne sono ancora!
-                if (questionNumber < questions.length) {
-                    nextQuestion();
-                    avviaTimer();
-                    if (grid) grid.style.pointerEvents = 'auto';
-                } else {
-                    // Se scade il tempo all'ultima domanda, chiudiamo il quiz!
-                    document.querySelector(".quiz").style.display = "none";
-                    if (document.querySelector(".quiz-footer")) {
-                        document.querySelector(".quiz-footer").style.display = "none";
-                    }
-                    showFinalSummary();
-                }
-            }, 1000);
-        }
-    }, 1000);
+  }, 1000);
 }
-
-// Avvia il timer la prima volta
-avviaTimer();
