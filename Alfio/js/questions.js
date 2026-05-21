@@ -129,18 +129,23 @@ function nextQuestion() {
     label.onclick = function (event) {
       if (event.target.tagName === "INPUT") return; // per eliminare il primo input di default
 
+      // --- UNICA MODIFICA EFFETTUATA ---
+      // Salviamo tutte le informazioni necessarie per far funzionare showFinalSummary() dopo
       if (risposta === domanda.correct_answer) {
         score++;
-
         quizSummary.push({
           questionText: domanda.question,
           userAnswer: risposta,
+          correctAnswer: domanda.correct_answer, // Salvata!
+          allAnswers: risposte, // Salvata!
           result: "correct",
         });
       } else {
         quizSummary.push({
           questionText: domanda.question,
           userAnswer: risposta,
+          correctAnswer: domanda.correct_answer, // Salvata!
+          allAnswers: risposte, // Salvata!
           result: "wrong",
         });
       }
@@ -176,18 +181,16 @@ function nextQuestion() {
 nextQuestion();
 
 function showFinalSummary() {
-  document.querySelector(".question").style.display = "none";
-  document.querySelector(".answers").style.display = "none";
-  document.querySelector(".timer").style.display = "none";
-  document.querySelector(".quiz-footer").style.display = "none";
+  if (document.querySelector(".question")) document.querySelector(".question").style.display = "none";
+  if (document.querySelector(".answers")) document.querySelector(".answers").style.display = "none";
+  if (document.querySelector(".timer")) document.querySelector(".timer").style.display = "none";
+  if (document.querySelector(".quiz-footer")) document.querySelector(".quiz-footer").style.display = "none";
 
   const summaryContainer = document.getElementById("summary-area");
-
   summaryContainer.replaceChildren();
 
   const finalScore = document.createElement("h2");
   finalScore.textContent = "You answered correctly to " + score + " questions";
-
   summaryContainer.appendChild(finalScore);
 
   quizSummary.forEach(function (element) {
@@ -202,7 +205,6 @@ function showFinalSummary() {
 
     element.allAnswers.forEach(function (answer) {
       const li = document.createElement("li");
-
       li.textContent = answer;
 
       if (answer === element.correctAnswer) {
@@ -223,15 +225,16 @@ function showFinalSummary() {
 
     card.appendChild(pQuestion);
     card.appendChild(answersList);
-
     summaryContainer.appendChild(card);
   });
+  
+  summaryContainer.style.display = "block";
 }
-
+/*
 let risposteCorrette = 7;
 let risposteSbagliate = 3;
 
 localStorage.setItem("punteggioEsatto", risposteCorrette);
 localStorage.setItem("punteggioSbagliato", risposteSbagliate);
 
-window.location.href = "risultati.html";
+window.location.href = "risultati.html";*/

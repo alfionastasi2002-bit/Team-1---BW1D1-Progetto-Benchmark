@@ -3,20 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/quiz.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/summary.css" />
     <title>Epicode - Benchmark Quiz</title>
   </head>
 
   <body>
     <div class="container">
-      <!-- HEADER -->
       <header class="site-header">
         <img src="assets/epicode_logo.png" alt="Logo Epicode" />
       </header>
-      <!-- MAIN -->
+
       <main class="quiz">
-        <!-- TIMER -->
         <div class="timer">
           <div class="timer-circle">
             <div class="timer-inner">
@@ -26,20 +24,23 @@
             </div>
           </div>
         </div>
-        <!-- QUESTION -->
         <article class="question">
           <h1 id="questionText">in caricamento..</h1>
         </article>
         <form class="answers">
           <fieldset id="answersGrid"></fieldset>
         </form>
-        <div id="summary-area"></div>
       </main>
-      <!-- FOOTER -->
+
+      <div id="summary-area"></div>
+
       <footer class="quiz-footer">
         <p>QUESTION <strong id="currentQ">1</strong> <span>/ 10</span></p>
       </footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    
     <script src="js/questions.js"></script>
     <script src="js/timer.js"></script>
     <script src="js/script.js"></script>
