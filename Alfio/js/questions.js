@@ -102,6 +102,7 @@ const questions = [
 
 let questionNumber = 0;
 let score = 0;
+const quizSummary = []
 
 const questionText = document.querySelector('#questionText');
 const answersGrid = document.querySelector('#answersGrid');
@@ -138,15 +139,39 @@ function nextQuestion() {
 
             if (risposta === domanda.correct_answer) {
                 score++;
+
+                quizSummary.push({
+                    questionText: domanda.question,
+                    userAnswer: risposta,
+                    result: "correct"
+                });
+            }else{
+                quizSummary.push({
+                    questionText: domanda.question,
+                    userAnswer: risposta,
+                    result: "wrong"
+                });
             }
 
             answersGrid.style.pointerEvents = 'none';
 
-            setTimeout(function () {
+setTimeout(function () {
                 questionNumber++;
-                avviaTimer();
-                nextQuestion();
-                answersGrid.style.pointerEvents = 'auto';
+                
+                // CONTROLLO: Ci sono ancora domande?
+                if (questionNumber < questions.length) {
+                    avviaTimer();
+                    nextQuestion();
+                    answersGrid.style.pointerEvents = 'auto';
+                } else {
+                    // SE LE DOMANDE SONO FINITE:
+                    
+                    // 1. Nascondiamo il quiz principale 
+                    document.querySelector('.quiz').style.display = 'none'; 
+                    
+                    // 2. Facciamo partire la TUA funzione che stampa i risultati nel "summary-area"
+                    showFinalSummary();
+                }
             }, 1000);
         };
 
