@@ -16,7 +16,7 @@ const questions = [
     type: "multiple",
     difficulty: "easy",
     question:
-      "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn&#039;t get modified?",
+      "In the programming language Java, which keyword makes a variable unmodifiable?",
     correct_answer: "Final",
     incorrect_answers: ["Static", "Private", "Public"],
   },
@@ -32,8 +32,7 @@ const questions = [
     category: "Science: Computers",
     type: "boolean",
     difficulty: "easy",
-    question:
-      "Pointers were not used in the original C programming language; they were added later on in C++.",
+    question: "Pointers were not used in the original C programming language.",
     correct_answer: "False",
     incorrect_answers: ["True"],
   },
@@ -41,8 +40,7 @@ const questions = [
     category: "Science: Computers",
     type: "multiple",
     difficulty: "easy",
-    question:
-      "What is the most preferred image format used for logos in the Wikimedia database?",
+    question: "What is the preferred image format used for logos in Wikimedia?",
     correct_answer: ".svg",
     incorrect_answers: [".png", ".jpeg", ".gif"],
   },
@@ -62,8 +60,7 @@ const questions = [
     category: "Science: Computers",
     type: "multiple",
     difficulty: "easy",
-    question:
-      "What is the code name for the mobile operating system Android 7.0?",
+    question: "What is the code name for Android 7.0?",
     correct_answer: "Nougat",
     incorrect_answers: ["Ice Cream Sandwich", "Jelly Bean", "Marshmallow"],
   },
@@ -71,7 +68,7 @@ const questions = [
     category: "Science: Computers",
     type: "multiple",
     difficulty: "easy",
-    question: "On Twitter, what is the character limit for a Tweet?",
+    question: "What was the old Twitter character limit?",
     correct_answer: "140",
     incorrect_answers: ["120", "160", "100"],
   },
@@ -79,7 +76,7 @@ const questions = [
     category: "Science: Computers",
     type: "boolean",
     difficulty: "easy",
-    question: "Linux was first created as an alternative to Windows XP.",
+    question: "Linux was created as an alternative to Windows XP.",
     correct_answer: "False",
     incorrect_answers: ["True"],
   },
@@ -88,7 +85,7 @@ const questions = [
     type: "multiple",
     difficulty: "easy",
     question:
-      "Which programming language shares its name with an island in Indonesia?",
+      "Which programming language shares its name with an Indonesian island?",
     correct_answer: "Java",
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
@@ -104,46 +101,44 @@ const currentQ = document.querySelector("#currentQ");
 
 function nextQuestion() {
   const domanda = questions[questionNumber];
+
   questionText.innerHTML = domanda.question;
   currentQ.innerHTML = questionNumber + 1;
   answersGrid.innerHTML = "";
 
   const risposte = [domanda.correct_answer, ...domanda.incorrect_answers];
-  risposte.sort(() => Math.random() - 0.5); // per avere una probabilità casuale dove andrà a finire la domanda
+
+  risposte.sort(() => Math.random() - 0.5);
 
   risposte.forEach(function (risposta) {
-    const label = document.createElement("label"); // per generare dinamicamente questi elementi nell'html
+    const label = document.createElement("label");
     const input = document.createElement("input");
     const span = document.createElement("span");
 
-    label.className = "answer"; //assegnazioni classi css
+    label.className = "answer";
     input.className = "radio";
-    span.className = risposta;
 
-    input.type = "radio"; //configurazione del'input
+    input.type = "radio";
     input.name = "answer";
     input.value = risposta;
 
-    span.innerHTML = risposta; // il testo dela rispost
+    span.innerHTML = risposta;
 
     label.onclick = function (event) {
-      if (event.target.tagName === "INPUT") return; // per eliminare il primo input di default
+      if (event.target.tagName === "INPUT") return;
 
       if (risposta === domanda.correct_answer) {
         score++;
-
-        quizSummary.push({
-          questionText: domanda.question,
-          userAnswer: risposta,
-          result: "correct",
-        });
-      } else {
-        quizSummary.push({
-          questionText: domanda.question,
-          userAnswer: risposta,
-          result: "wrong",
-        });
       }
+
+      quizSummary.push({
+        questionText: domanda.question,
+        allAnswers: risposte,
+        userAnswer: risposta,
+        correctAnswer: domanda.correct_answer,
+        result: risposta === domanda.correct_answer ? "correct" : "wrong",
+      });
+
       answersGrid.style.pointerEvents = "none";
 
       setTimeout(function () {
@@ -166,10 +161,21 @@ function nextQuestion() {
 }
 
 nextQuestion();
+
 function showFinalSummary() {
+  document.querySelector(".question").style.display = "none";
+  document.querySelector(".answers").style.display = "none";
+  document.querySelector(".timer").style.display = "none";
+  document.querySelector(".quiz-footer").style.display = "none";
+
   const summaryContainer = document.getElementById("summary-area");
 
   summaryContainer.replaceChildren();
+
+  const finalScore = document.createElement("h2");
+  finalScore.textContent = "You answered correctly to " + score + " questions";
+
+  summaryContainer.appendChild(finalScore);
 
   quizSummary.forEach(function (element) {
     const card = document.createElement("div");
@@ -179,17 +185,31 @@ function showFinalSummary() {
     pQuestion.textContent = element.questionText;
     pQuestion.className = "question-title";
 
-    const pAnswer = document.createElement("p");
-    pAnswer.textContent = "Your Answer: " + element.userAnswer;
+    const answersList = document.createElement("ul");
 
-    if (element.result === "correct") {
-      pAnswer.className = "result-correct";
-    } else {
-      pAnswer.className = "result-wrong";
-    }
+    element.allAnswers.forEach(function (answer) {
+      const li = document.createElement("li");
+
+      li.textContent = answer;
+
+      if (answer === element.correctAnswer) {
+        li.classList.add("result-correct");
+      }
+
+      // risposta scelta dall'utente
+      if (answer === element.userAnswer) {
+        li.classList.add("selected-answer");
+      }
+
+      // risposta scelta ma sbagliata
+      if (answer === element.userAnswer && answer !== element.correctAnswer) {
+        li.classList.add("result-wrong");
+      }
+      answersList.appendChild(li);
+    });
 
     card.appendChild(pQuestion);
-    card.appendChild(pAnswer);
+    card.appendChild(answersList);
 
     summaryContainer.appendChild(card);
   });
