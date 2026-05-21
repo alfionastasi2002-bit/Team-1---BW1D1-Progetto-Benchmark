@@ -174,3 +174,64 @@ function nextQuestion() {
 }
 
 nextQuestion();
+
+function showFinalSummary() {
+  document.querySelector(".question").style.display = "none";
+  document.querySelector(".answers").style.display = "none";
+  document.querySelector(".timer").style.display = "none";
+  document.querySelector(".quiz-footer").style.display = "none";
+
+  const summaryContainer = document.getElementById("summary-area");
+
+  summaryContainer.replaceChildren();
+
+  const finalScore = document.createElement("h2");
+  finalScore.textContent = "You answered correctly to " + score + " questions";
+
+  summaryContainer.appendChild(finalScore);
+
+  quizSummary.forEach(function (element) {
+    const card = document.createElement("div");
+    card.className = "summary-card";
+
+    const pQuestion = document.createElement("p");
+    pQuestion.textContent = element.questionText;
+    pQuestion.className = "question-title";
+
+    const answersList = document.createElement("ul");
+
+    element.allAnswers.forEach(function (answer) {
+      const li = document.createElement("li");
+
+      li.textContent = answer;
+
+      if (answer === element.correctAnswer) {
+        li.classList.add("result-correct");
+      }
+
+      // risposta scelta dall'utente
+      if (answer === element.userAnswer) {
+        li.classList.add("selected-answer");
+      }
+
+      // risposta scelta ma sbagliata
+      if (answer === element.userAnswer && answer !== element.correctAnswer) {
+        li.classList.add("result-wrong");
+      }
+      answersList.appendChild(li);
+    });
+
+    card.appendChild(pQuestion);
+    card.appendChild(answersList);
+
+    summaryContainer.appendChild(card);
+  });
+}
+
+let risposteCorrette = 7;
+let risposteSbagliate = 3;
+
+localStorage.setItem("punteggioEsatto", risposteCorrette);
+localStorage.setItem("punteggioSbagliato", risposteSbagliate);
+
+window.location.href = "risultati.html";
