@@ -1,0 +1,48 @@
+/*contenitore generale*/
+#summary-area{
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: sans-serif;
+}
+/*scatola generale di ogni singola domanda*/
+.summary-card{
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 1); /*ombra*/
+    border-left: 5px solid #3498db;
+}
+/*testo domanda dentro la card*/
+.question-title{
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #f8f9f9
+}
+/*classe applicata se risposta giusta*/
+.result-correct{
+    color:#27ae60 !important;
+    font-weight: bold;
+}
+/*inserisce una v dopo il testo*/
+.result-correct::after {
+    content: " ✔"; 
+    font-size: 1.2rem;
+    margin-left: 8px; /* Distanza dal testo */
+}
+
+/* --- RISPOSTA SBAGLIATA --- */
+.result-wrong {
+    color: #c0392b !important; /* Testo rosso */
+    font-weight: bold;
+}
+
+/* Inserisce una X rossa dopo il testo */
+.result-wrong::after {
+    content: " ✘"; /* Puoi usare il simbolo della X */
+    font-size: 1.2rem;
+    margin-left: 8px; /* Distanza dal testo */
+}
+
