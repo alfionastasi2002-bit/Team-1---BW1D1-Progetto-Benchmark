@@ -214,3 +214,11 @@ function showFinalSummary() {
     summaryContainer.appendChild(card);
   });
 }
+
+let risposteCorrette = 7; 
+let risposteSbagliate = 3;
+
+localStorage.setItem('punteggioEsatto', risposteCorrette);
+localStorage.setItem('punteggioSbagliato', risposteSbagliate);
+
+window.location.href = 'risultati.html';
