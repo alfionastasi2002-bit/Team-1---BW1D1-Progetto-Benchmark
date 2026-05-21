@@ -96,6 +96,7 @@ const questions = [
 
 let questionNumber = 0;
 let score = 0;
+let quizSummary = [];
 
 const questionText = document.querySelector("#questionText");
 const answersGrid = document.querySelector("#answersGrid");
@@ -130,15 +131,31 @@ function nextQuestion() {
 
       if (risposta === domanda.correct_answer) {
         score++;
-      }
 
+        quizSummary.push({
+          questionText: domanda.question,
+          userAnswer: risposta,
+          result: "correct",
+        });
+      } else {
+        quizSummary.push({
+          questionText: domanda.question,
+          userAnswer: risposta,
+          result: "wrong",
+        });
+      }
       answersGrid.style.pointerEvents = "none";
 
       setTimeout(function () {
         questionNumber++;
-        avviaTimer();
-        nextQuestion();
-        answersGrid.style.pointerEvents = "auto";
+
+        if (questionNumber < questions.length) {
+          avviaTimer();
+          nextQuestion();
+          answersGrid.style.pointerEvents = "auto";
+        } else {
+          showFinalSummary();
+        }
       }, 1000);
     };
 
@@ -149,3 +166,31 @@ function nextQuestion() {
 }
 
 nextQuestion();
+function showFinalSummary() {
+  const summaryContainer = document.getElementById("summary-area");
+
+  summaryContainer.replaceChildren();
+
+  quizSummary.forEach(function (element) {
+    const card = document.createElement("div");
+    card.className = "summary-card";
+
+    const pQuestion = document.createElement("p");
+    pQuestion.textContent = element.questionText;
+    pQuestion.className = "question-title";
+
+    const pAnswer = document.createElement("p");
+    pAnswer.textContent = "Your Answer: " + element.userAnswer;
+
+    if (element.result === "correct") {
+      pAnswer.className = "result-correct";
+    } else {
+      pAnswer.className = "result-wrong";
+    }
+
+    card.appendChild(pQuestion);
+    card.appendChild(pAnswer);
+
+    summaryContainer.appendChild(card);
+  });
+}
