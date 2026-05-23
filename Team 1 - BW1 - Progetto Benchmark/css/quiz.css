@@ -48,7 +48,6 @@ body {
   margin: 0 auto;
 }
 
-
 .timer {
   position: absolute;
   top: 40px;
@@ -123,7 +122,6 @@ body {
   gap: 18px;
 }
 
-
 .answer {
   display: flex;
   align-items: center;
@@ -163,7 +161,6 @@ body {
   box-shadow: 0 0 0 3px rgba(192, 37, 111, 0.35);
   transform: translateY(-2px);
 }
-
 
 .quiz-footer {
   padding-bottom: 40px;
