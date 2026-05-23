@@ -1,49 +1,41 @@
-// Secondi iniziali timer
-let secondi = 60;
 
-// Variabile intervallo timer
-let timer;
+let secondi = 60
+let timer
+const countdown = document.querySelector("#countdown")
+const timerCircle = document.querySelector(".timer-circle")
 
-// Selezione elementi HTML
-const countdown = document.querySelector("#countdown");
-
-const timerCircle = document.querySelector(".timer-circle");
-
-// FUNZIONE TIMER
 function avviaTimer() {
-  // Ferma eventuali timer precedenti
-  clearInterval(timer);
+  clearInterval(timer)
 
-  // Reset secondi
+
   secondi = 60;
 
-  // Aggiorna testo timer
-  countdown.textContent = secondi;
+  countdown.textContent = secondi
 
-  // Reset grafica cerchio
+
   timerCircle.style.background =
-    "conic-gradient(#00e5ff 100%, rgba(255,255,255,0.1) 0%)";
+    "conic-gradient(#00e5ff 100%, rgba(255,255,255,0.1) 0%)"
 
-  // Timer ogni secondo
+
   timer = setInterval(function () {
-    // Diminuisce secondi
-    secondi--;
 
-    // Aggiorna numero timer
-    countdown.textContent = secondi;
+    secondi--
 
-    // Calcolo percentuale grafica
-    const percent = (secondi / 60) * 100;
 
-    // Aggiorna cerchio animato
-    timerCircle.style.background = `conic-gradient(#00e5ff ${percent}%, rgba(255,255,255,0.1) 0%)`;
+    countdown.textContent = secondi
 
-    // Se tempo finito
+
+    const percent = (secondi / 60) * 100
+
+
+    timerCircle.style.background = `conic-gradient(#00e5ff ${percent}%, rgba(255,255,255,0.1) 0%)`
+
+
     if (secondi <= 0) {
-      // Ferma timer
-      clearInterval(timer);
 
-      // Salva risposta non data
+      clearInterval(timer)
+
+
       quizSummary.push({
         questionText: questions[questionNumber].question,
 
@@ -52,10 +44,10 @@ function avviaTimer() {
         correctAnswer: questions[questionNumber].correct_answer,
 
         result: "wrong",
-      });
+      })
 
-      // Passa domanda successiva
-      vaiAllaProssimaDomanda();
+
+      vaiAllaProssimaDomanda()
     }
-  }, 1000);
+  }, 1000)
 }

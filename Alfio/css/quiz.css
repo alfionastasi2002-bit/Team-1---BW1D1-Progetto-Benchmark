@@ -23,7 +23,6 @@ body {
   width: 80%;
   max-width: 1200px;
   margin: 0 auto;
-
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -39,7 +38,6 @@ body {
   margin-left: 220px;
 }
 
-/* main */
 .quiz {
   width: 700px;
   flex: 1;
@@ -50,7 +48,7 @@ body {
   margin: 0 auto;
 }
 
-/* timer */
+
 .timer {
   position: absolute;
   top: 40px;
@@ -102,7 +100,7 @@ body {
   line-height: 1;
 }
 
-/* domandee */
+
 .question {
   text-align: center;
   max-width: 760px;
@@ -116,17 +114,16 @@ body {
   font-weight: 400;
 }
 
-/* ripsoste */
+
 #answersGrid {
   border: none;
   padding: 0;
-
   display: grid;
   grid-template-columns: 320px 320px;
   gap: 18px;
 }
 
-/* singola risposta */
+
 .answer {
   display: flex;
   align-items: center;
@@ -167,7 +164,7 @@ body {
   transform: translateY(-2px);
 }
 
-/* footer */
+
 .quiz-footer {
   padding-bottom: 40px;
   text-align: center;

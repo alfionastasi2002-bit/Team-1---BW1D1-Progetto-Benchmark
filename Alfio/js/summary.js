@@ -1,54 +1,74 @@
-// FUNZIONE:
-// crea riepilogo finale risposte
+//funzione che crea il riepilogo finale
+function generaSchermataFinale(correctPercentage, quizArea) {
+  const section = document.createElement("section")
+  section.className = "result-page";
+
+
+  const finalScore = document.createElement("div")
+  finalScore.className = "final-score";
+  finalScore.textContent = `${correctPercentage}%`
+
+
+  const summaryTitle = document.createElement("h2")
+  summaryTitle.textContent = "Answers Review"
+
+ 
+  const summaryArea = document.createElement("div")
+  summaryArea.id = "summary-area"
+
+
+  section.appendChild(finalScore)
+  section.appendChild(summaryTitle)
+  section.appendChild(summaryArea)
+  quizArea.appendChild(section)
+
+
+  showFinalSummary()
+
+  // Se il punteggio è >= 60%, spara i coriandoli!
+  if (correctPercentage >= 60) {
+    showConfetti()
+  }
+}
+
+
 function showFinalSummary() {
-  // Contenitore riepilogo
-  const summaryContainer = document.getElementById("summary-area");
+  const summaryContainer = document.getElementById("summary-area")
+  if (!summaryContainer) return // Sicurezza per evitare errori
 
-  // Svuota eventuali contenuti
-  summaryContainer.replaceChildren();
+  summaryContainer.replaceChildren()
 
-  // Per ogni risposta salvata...
   quizSummary.forEach(function (element, index) {
-    // Creazione card
-    const card = document.createElement("div");
+    const card = document.createElement("div")
+    card.className = "summary-card"
 
-    card.className = "summary-card";
 
-    // Testo domanda
-    const pQuestion = document.createElement("p");
+    const pQuestion = document.createElement("p")
+    pQuestion.textContent = `${index + 1}. ${element.questionText}`
+    pQuestion.className = "question-title"
 
-    pQuestion.innerHTML = `${index + 1}. ${element.questionText}`;
+    const pAnswer = document.createElement("p")
+    pAnswer.textContent = `Your Answer: ${element.userAnswer}`
+    pAnswer.className = element.result === "correct" ? "result-correct" : "result-wrong"
 
-    pQuestion.className = "question-title";
+    const pCorrect = document.createElement("p")
+    pCorrect.textContent = `Correct Answer: ${element.correctAnswer}`
+    pCorrect.className = "correct-answer"
 
-    // Risposta utente
-    const pAnswer = document.createElement("p");
+    card.appendChild(pQuestion)
+    card.appendChild(pAnswer)
 
-    pAnswer.textContent = `Your Answer: ${element.userAnswer}`;
-
-    // Classe verde o rossa
-    pAnswer.className =
-      element.result === "correct" ? "result-correct" : "result-wrong";
-
-    // Risposta corretta
-    const pCorrect = document.createElement("p");
-
-    pCorrect.textContent = `Correct Answer: ${element.correctAnswer}`;
-
-    pCorrect.className = "correct-answer";
-
-    // Inserimento elementi nella card
-    card.appendChild(pQuestion);
-
-    card.appendChild(pAnswer);
-
-    // Mostra risposta corretta
-    // solo se sbagliata
     if (element.result === "wrong") {
       card.appendChild(pCorrect);
     }
 
-    // Inserisce card nel riepilogo
-    summaryContainer.appendChild(card);
+    summaryContainer.appendChild(card)
   });
+}
+
+
+function showConfetti() {
+  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+  setTimeout(function () { confetti({ particleCount: 50, spread: 90, origin: { x: 0.3, y: 0.7 } }); }, 300)
+  setTimeout(function () { confetti({ particleCount: 50, spread: 90, origin: { x: 0.7, y: 0.7 } }); }, 600)
 }

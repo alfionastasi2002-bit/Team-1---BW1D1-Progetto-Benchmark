@@ -9,9 +9,7 @@
   font-size: 120px;
   font-weight: bold;
   text-align: center;
-
   margin: 80px 0 90px;
-
   color: #d6b3ff;
 
   text-shadow:
@@ -20,6 +18,8 @@
 
   animation: pulse 1.5s infinite alternate;
 }
+
+/* keyframes definisce un'animazione css, pulse è il nome dell'animazione richiamata sopra*/
 
 @keyframes pulse {
   from {
@@ -42,26 +42,17 @@
 .result-page h2 {
   margin-top: 30px;
   margin-bottom: 20px;
-
   color: #c7b8ff;
-
   font-weight: 500;
   letter-spacing: 1px;
 }
 
 .summary-card {
   background-color: rgba(255, 255, 255, 0.05);
-
   border-radius: 8px;
-
   padding: 15px;
-
   margin-bottom: 20px;
-
   box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
-
-  border-left: 5px solid #3498db;
-
   text-align: left;
 }
 
@@ -73,7 +64,7 @@
 }
 
 .result-correct {
-  color: #27ae60 !important;
+  color: #2ed573 !important;
   font-weight: bold;
 }
 
@@ -95,27 +86,18 @@
 }
 
 .correct-answer {
-  color: #00e5ff;
+  color: #0bdb62;
   font-weight: bold;
   margin-top: 8px;
 }
 
-.restart-btn {
-  margin-top: 30px;
 
-  padding: 15px 45px;
+/* Se la card contiene una risposta corretta, il bordo diventa verde */
+.summary-card:has(.result-correct) {
+  border-left: 5px solid #2ed573;
+}
 
-  font-family: "Inter", sans-serif;
-
-  font-weight: bold;
-
-  font-size: 18px;
-
-  background-color: #00ffff;
-
-  border: none;
-
-  cursor: pointer;
-
-  box-shadow: 0 0 20px rgba(0, 245, 212, 0.6);
+/* Se la card contiene una risposta sbagliata, il bordo rimane rosso vivo */
+.summary-card:has(.result-wrong) {
+  border-left: 5px solid #c0392b;
 }
